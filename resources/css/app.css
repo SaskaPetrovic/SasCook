@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    position: relative !important;
+    min-height: 100% !important;
+}
+
+body {
+    background-color: rgb(255, 251, 251);
+    margin-bottom: 240px !important;
+    min-height: 100%;
+}
+
+header {
+    background-color: rgb(158, 150, 192);
+}
+footer {
+  background-color: rgb(158, 150, 192);
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100%;
+}
+
+/*menu dropdown*/
+/* Dropdown Button */
+.dropdown-btn { 
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    margin-top: 4px;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    margin-top: 1.2rem;
+    background-color: rgb(158, 150, 192) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top center;
+    transform: scaleY(0);
+    border-radius: 3px;
+  }
+  
+  .dropdown-transition {
+    transform: scaleY(1);
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    padding: 10px 5px 5px 5px;
+    text-decoration: none;
+    display: block;
+    width: 220px;
+  }
+  .dropdownHover:hover {
+    background-color: rgb(176, 171, 201);
+    border-radius: 3%;
+  }
+
+  /* Logout Button */
+  .logout-btn {
+    border: none;
+    outline: none;
+    padding: 5px 5px 10px 5px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    width: 220px;
+    text-align:left;
+  }
+  
+  /* Change color of logout button on hover */
+  .logout-btn:hover {
+    background-color: rgb(176, 171, 201) !important;
+    border-radius: 3% !important;
+  }
+
+
+  /*accueil*/
+.overflowResume{
+  width: auto;
+  height: 200px;
+  overflow-y: hidden;
+  line-height: 2;
+  text-align: justify;
+}
+#AccImgSize {
+    height: auto;
+    width: 30rem;
+    margin: auto;
+    display: block;
+}
+
