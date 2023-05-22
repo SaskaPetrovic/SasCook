@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//page d'accueil, dernière recette ajoutée
 Route::get('/', [recipeController::class, 'lastRecipe'])->name('accueil');
+
+//page de recette, recette aléatoire en moins de 30 min + 
+//barre de recherche
+Route::get('/recette', [recipeController::class, 'allRecipies'])->name('recette');
 
 
 

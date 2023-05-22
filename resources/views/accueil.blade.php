@@ -41,7 +41,7 @@ Description : Dernière recette affichée
             <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
                 <h2 class="title-font mb-4 font-medium text-gray-900">{{ $lastRecipe->categorie }}</h2>
                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ $lastRecipe-> recTitre}}</h1>
-                <p class="mb-8 leading-relaxed text-justify">Ajoutée le : {{$lastRecipe->recDate}}</p>
+                <p class="mb-8 leading-relaxed text-justify">Ajoutée le : {{$lastRecipe->created_at}}</p>
                 <div class="flex justify-center">
                     <a href="{{ url('/descriptionRecette') }}" class="text-indigo-500 inline-flex items-center mt-3">En savoir plus
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">

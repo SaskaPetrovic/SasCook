@@ -14,9 +14,9 @@ Description : Header du site
                 <a href="/accueil" class="ml-3 text-xl">SasCook </a>
             </a>
             <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto">
-                <a class="mr-5 hover:text-gray-900" href="{{ url('/accueil') }}">Accueil</a>
+                <a class="mr-5 hover:text-gray-900" href="{{ url('/') }}">Accueil</a>
                 <a class="mr-5 hover:text-gray-900" href="{{ url('/recette') }}">Recettes</a>
-                <a class="mr-5 hover:text-gray-900" href="{{ url('/contact') }}">Contact</a>
+
 
                 @if (Route::has('login'))
                 <div class="mr-5 AccFontColor">
