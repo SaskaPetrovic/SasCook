@@ -13,15 +13,29 @@ body {
     margin-bottom: 240px !important;
     min-height: 100%;
 }
+p{
+  white-space: pre-line;
+}
 
 header {
     background-color: rgb(158, 150, 192);
+}
+
+.logo{
+  width: auto;
+  height: 5rem;
 }
 footer {
   background-color: rgb(158, 150, 192);
   position: absolute !important;
   bottom: 0 !important;
   width: 100%;
+}
+#backBtn
+{
+    height: 50px !important;
+    margin-left: 10px;
+    background-color: rgb(158, 150, 192) !important;
 }
 
 /*menu dropdown*/
@@ -153,3 +167,16 @@ height: auto;
 #space-checkbox {
   margin-right: 20px !important;
 }
+
+
+/*description*/
+
+#desImgSize {
+width: auto;
+height: 3rem;
+  margin: 0 !important;
+}
+
+
+
+

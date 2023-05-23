@@ -15,11 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //page d'accueil, dernière recette ajoutée
+//page de recette, recette aléatoire en moins de 30 min + 
 Route::get('/', [recipeController::class, 'lastRecipe'])->name('accueil');
 
-//page de recette, recette aléatoire en moins de 30 min + 
+
 //barre de recherche
+//filtre des catégories et des ingrédients
 Route::get('/recette', [recipeController::class, 'allRecipies'])->name('recette');
+
+//affiche toutes les détails des recettes
+
+Route::get('/description/{id}', [recipeController::class, 'descriptionRecipies'])->name('description');
+
+//permet le calcule du nombre de personnes
+Route::post('/description/update-servings/{id}', [recipeController::class, 'updateServings'])->name('updateServings');
 
 
 

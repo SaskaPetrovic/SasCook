@@ -15,12 +15,13 @@ Description : Dernière recette affichée
 
 
 -->
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Accueil</title>
+    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
 </head>
 <!--inclure le header dans la page d'accueil -->
 @include('header')

@@ -21,12 +21,13 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
 
 
 -->
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Recette</title>
+    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
 </head>
 <!--inclure le header dans la page d'accueil -->
 @include('header')
@@ -119,7 +120,7 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
                             @endforeach
                         </h2>
                         <h2 class="text-lg text-gray-900 font-medium title-font mt-4 mb-4">{{ $recette->recTitre }}</h2>
-                        <a href="{{ url('/descriptionRecette') }}" class="text-indigo-500 inline-flex items-center mt-3 ">En savoir plus
+                        <a href="{{ url('/description',['id' => $recette->idRecette]) }}" class="text-indigo-500 inline-flex items-center mt-3 ">En savoir plus
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>

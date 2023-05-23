@@ -67,20 +67,18 @@ class recipeController extends Controller
         $allRecipies = t_recette::select(
             't_recette.*',
             t_categorie::raw('GROUP_CONCAT(DISTINCT t_categorie.catNom SEPARATOR ", ") as categorie'),
-            t_ingredient::raw('GROUP_CONCAT(DISTINCT CONCAT_WS(" ", t_ingredient.ingNom, t_utiliser.utiQuantite, t_utiliser.utiUniteDeMesure) SEPARATOR ", ") as ingredients')
+
         )
             ->leftJoin('t_appartenir', 't_recette.idRecette', '=', 't_appartenir.idRecette')
             ->leftJoin('t_categorie', 't_appartenir.idCategorie', '=', 't_categorie.idCategorie')
-            ->leftJoin('t_utiliser', 't_recette.idRecette', '=', 't_utiliser.idRecette')
-            ->leftJoin('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
             ->orderBy('t_recette.created_at', 'desc')
             ->groupBy('t_recette.idRecette');
-            
+
 
 
         /*-----------------------------------filtre de catégorie et d'ingrédient----------------------------------------*/
 
-       
+
         // Filtre par categorie si des categories sont sélectionnées
         if (!empty($selectedCategorie)) {
             $allRecipies->whereIn('t_categorie.idCategorie', $selectedCategorie);
@@ -101,7 +99,7 @@ class recipeController extends Controller
 
 
 
-         /*-----------------------------------filtre de recherche----------------------------------------*/
+        /*-----------------------------------filtre de recherche----------------------------------------*/
 
         // Récupère la requête de recherche
         $query = $request->input('query');
@@ -138,9 +136,6 @@ class recipeController extends Controller
             ]);
         }
 
-
-        
-
         return view('recette', [
             'allRecipiesUpdate' => $allRecipiesUpdate,
             'messageSearch' => null,
@@ -151,4 +146,65 @@ class recipeController extends Controller
             'ingredients' => $ingredients,
         ]);
     }
+
+
+    /*-----------------------------------PAGE DE DESCRIPTION - description des recettes----------------------------------------*/
+
+    public function descriptionRecipies($id)
+    {
+        // Récupère toutes les recettes
+        $infoRecipies = t_recette::select(
+            't_recette.*',
+            t_categorie::raw('GROUP_CONCAT(DISTINCT t_categorie.catNom SEPARATOR ", ") as categorie'),
+            t_ingredient::raw('GROUP_CONCAT(DISTINCT CONCAT_WS(" ", t_utiliser.utiQuantite, t_utiliser.utiUniteDeMesure, t_ingredient.ingNom) SEPARATOR ", ") as ingredients')
+        )
+            ->leftJoin('t_appartenir', 't_recette.idRecette', '=', 't_appartenir.idRecette')
+            ->leftJoin('t_categorie', 't_appartenir.idCategorie', '=', 't_categorie.idCategorie')
+            ->leftJoin('t_utiliser', 't_recette.idRecette', '=', 't_utiliser.idRecette')
+            ->leftJoin('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+            ->where('t_recette.idRecette', '=', $id)
+            ->groupBy('t_recette.idRecette')
+            ->get();
+
+            $numPeople = 1;
+            $ingredients = [];
+
+            
+
+        return view('description', [
+            'infoRecipies' => $infoRecipies[0],
+            'numPeople' => $numPeople,
+            'ingredients' => $ingredients
+        ]);
+    }
+
+    /*-----------------------------------PAGE DE DESCRIPTION - calcule du nombre de personnes----------------------------------------*/
+    public function updateServings(Request $request, $id)
+    {
+    $numPeople = $request->input('servings');
+    $infoRecipies = t_recette::find($id);
+
+    // Récupère les ingrédients associés à la recette
+    $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+        ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+        ->where('t_utiliser.idRecette', $id)
+        ->get();
+
+    // Met à jour les quantités des ingrédients en fonction du nombre de personnes
+    foreach ($ingredients as $ingredient) {
+        $quantity = $ingredient->utiQuantite; 
+
+        $updatedQuantity = $quantity * $numPeople;
+
+        $ingredient->utiQuantite = $updatedQuantity; 
+    }
+
+    return view('description', [
+        'infoRecipies' => $infoRecipies,
+        'ingredients' => $ingredients,
+        'numPeople' => $numPeople
+    ]);
+    }
+
+
 }

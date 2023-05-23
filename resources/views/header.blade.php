@@ -8,10 +8,10 @@ Description : Header du site
 <!--header du site-->
 <header>
     <main class="AccFontColor">
-        <div class="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
+        <div class="container flex flex-col flex-wrap items-center p-2 mx-auto md:flex-row">
             <a class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
-                <img class="logo" src="{{'/img/logo.png'}}">
-                <a href="/accueil" class="ml-3 text-xl">SasCook </a>
+                <img class="logo" src="{{'/img/logoSite.png'}}">
+                <a href="/" class="ml-3 text-xl">SasCook </a>
             </a>
             <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto">
                 <a class="mr-5 hover:text-gray-900" href="{{ url('/') }}">Accueil</a>
