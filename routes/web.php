@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//------------------------------------------------Accueil---------------------------------------------//
+
 //page d'accueil, dernière recette ajoutée
 //page de recette, recette aléatoire en moins de 30 min + 
 Route::get('/', [recipeController::class, 'lastRecipe'])->name('accueil');
@@ -23,12 +26,22 @@ Route::get('/', [recipeController::class, 'lastRecipe'])->name('accueil');
 //filtre des catégories et des ingrédients
 Route::get('/recette', [recipeController::class, 'allRecipies'])->name('recette');
 
-//affiche toutes les détails des recettes
 
+//------------------------------------------------description---------------------------------------------//
+
+//affiche toutes les détails des recettes
 Route::get('/description/{id}', [recipeController::class, 'descriptionRecipies'])->name('description');
 
 //permet le calcule du nombre de personnes
-Route::post('/description/update-servings/{id}', [recipeController::class, 'updateServings'])->name('updateServings');
+Route::post('/description/{id}', [recipeController::class, 'descriptionRecipies'])->name('description');
+
+
+Route::get('/formListeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('formListeDeCourse');
+
+Route::post('/formListeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('formListeDeCourse');
+
+//Route::post('/formListeDeCourse/{id}', [recipeController::class, 'calculateUpdatedQuantities'])->name('calculateUpdatedQuantities');
+
 
 
 

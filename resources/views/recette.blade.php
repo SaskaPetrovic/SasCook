@@ -3,7 +3,7 @@
 
 <head>
 
-<!--
+    <!--
 ETML
 Auteur      : Saska Petrovic
 Date        : 17.05.23
@@ -21,16 +21,17 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
 
 
 -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Recette</title>
-    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
-</head>
-<!--inclure le header dans la page d'accueil -->
-@include('header')
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        @vite('resources/css/app.css')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>Recette</title>
+        <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
+    </head>
+    <!--inclure le header dans la page d'accueil -->
+    @include('header')
 
 <body>
     <section class="text-gray-600 body-font">
@@ -45,8 +46,8 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
                                     bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 
                                     text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
-                            <button type="submit" class="inline-flex text-white bg-violet-400  border-0 py-2 px-6 focus:outline-none rounded 
-                                text-lg" id="color-btn">Rechercher</button>
+                            <button type="submit" class="inline-flex  border-0 py-2 px-6 focus:outline-none rounded 
+                                text-lg" id="defaultBtn">Rechercher</button>
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,7 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
                         @endforeach
                     </div>
                 </div>
-                <button id="filter-btn" type="submit" class="inline-flex text-white bg-indigo-500 border-0 py-1 px-5 focus:outline-none rounded text-lg">Filtrer</button>
+                <button id="defaultBtn" type="submit" class="inline-flex  border-0 mb-2 ml-7 py-1 px-5 focus:outline-none rounded text-lg">Filtrer</button>
             </div>
         </form>
 
@@ -96,31 +97,31 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
 
         @endif
 
-        <!--Message si aucune recette n'a été trouvé pour les catégories et les ingredients-->
-        @if (!empty($messageFilter))
-        <p id="AccMessage">{{ $messageFilter }}</p>
-        @endif
 
         <!---------------------------------------------- AFFICHER TOUTES LES RECETTES --------------------------------------------->
         <div class="container px-5 py-24 mx-auto">
             <div class="flex w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
                     <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Toutes les recettes</h1>
-                    <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+                    <div class="h-1 w-20 bg-indigo-200 rounded"></div>
                 </div>
             </div>
+            <!--Message si aucune recette n'a été trouvé pour les catégories et les ingredients-->
+            @if (!empty($messageFilter))
+            <p id="AccMessage">{{ $messageFilter }}</p>
+            @endif
             <div class="flex flex-wrap -m-4">
                 @foreach ($allRecipiesUpdate as $recette)
                 <div class="xl:w-1/3 md:w-1/2 p-4">
                     <div class="bg-gray-100 p-6 rounded-lg" id="RecipeCard">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" alt="recette" id="AccImgSize" src='{{"/img/".$recette -> recImage }}'>
+                        <img class="h-40 rounded w-full object-cover object-center mb-6" alt="recette" id="AccImgSize" src='{{"/img/".$recette -> recImageLien }}'>
                         <h2 class="text-s font-medium tracking-widest text-gray-400 title-font">
                             @foreach(explode(" ", $recette->categorie) as $categorie)
                             {{ $categorie }}
                             @endforeach
                         </h2>
                         <h2 class="text-lg text-gray-900 font-medium title-font mt-4 mb-4">{{ $recette->recTitre }}</h2>
-                        <a href="{{ url('/description',['id' => $recette->idRecette]) }}" class="text-indigo-500 inline-flex items-center mt-3 ">En savoir plus
+                        <a href="{{ url('/description',['id' => $recette->idRecette]) }}" class=" inline-flex items-center mt-3  text-indigo-400 ">En savoir plus
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>
@@ -136,7 +137,7 @@ Description : les filtres par catégories et ingrédients fonctionne. La barre d
             @endif
         </div>
     </section>
-    <!--inclure le footer dans la page de recette -->
+    <!--inclure le script qui permet l'ouverture et la fermeture des filtres dans la page de recette -->
     @include('filtreModal')
 </body>
 <!--inclure le footer dans la page de recette  -->

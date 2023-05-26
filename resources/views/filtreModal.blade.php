@@ -6,7 +6,7 @@ Description : permet de faire apparaitre et disparaitre le modal des filtres par
 -->
 
 <script>
-  //permet d'afficher la petite fenetre qui s'ouvre et se ferme quand l'utilisateur appuie sur "filtres"-->///
+  //permet d'afficher la petite fenetre qui s'ouvre et se ferme quand l'utilisateur appuie sur l'icône des filtres-->///
   const filterBtn = document.getElementById('filter-btn');
   const filterModal = document.getElementById('filter-modal');
   const filterForm = document.getElementById('filter-form');

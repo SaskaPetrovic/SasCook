@@ -14,6 +14,11 @@ use App\Models\t_ingredient;
 use App\Models\t_recette;
 use App\Models\t_appartenir;
 use App\Models\t_utiliser;
+use App\Models\t_contenir;
+use App\Models\t_generer;
+use App\Models\t_listeDeCourse;
+use App\Models\t_planifier;
+
 use Illuminate\Http\Request;
 use Psy\Command\WhereamiCommand;
 use Illuminate\Validation\Rule;
@@ -25,8 +30,15 @@ class recipeController extends Controller
     //----------------------------------------- Accueil, afficher la dernière recette ajoutée sur le site -------------------------------------------//
     public function lastRecipe()
     {
-        // Récupérer la dernière recette ajoutée
-        $lastRecipe = t_recette::select('t_recette.recTitre', 't_recette.recDate', 't_recette.recImage', 't_recette.created_at', t_categorie::raw('GROUP_CONCAT(t_categorie.catNom SEPARATOR ", ") as categorie'))
+        // Récupérer les informations de la dernière recette ajoutée
+        $lastRecipe = t_recette::select(
+            't_recette.idRecette',
+            't_recette.recTitre',
+            't_recette.recDateAjout',
+            't_recette.recImageLien',
+            't_recette.created_at',
+            t_categorie::raw('GROUP_CONCAT(t_categorie.catNom SEPARATOR ", ") as categorie')
+        )
             ->leftJoin('t_appartenir', 't_recette.idRecette', '=', 't_appartenir.idRecette')
             ->leftJoin('t_categorie', 't_appartenir.idCategorie', '=', 't_categorie.idCategorie')
             ->orderBy('t_recette.created_at', 'desc')
@@ -34,11 +46,18 @@ class recipeController extends Controller
             ->first();
 
 
-
         //----------------------------------------- Accueil, afficher une recette aléatoire sur la page d'accueil -------------------------------------------//
 
         //----------ChatGPT utilisé pour le sec_to_time --------------//
-        $randomRecipe = t_recette::select('t_recette.recTitre', 't_recette.recDate', 't_recette.recImage', t_recette::raw("SEC_TO_TIME(TIME_TO_SEC(t_recette.recTemps)) AS recTemps"), t_categorie::raw('GROUP_CONCAT(t_categorie.catNom SEPARATOR ", ") as categorie'))
+        // Récupère les informations de la recette et permet d'en afficher une aléatoirement
+        $randomRecipe = t_recette::select(
+            't_recette.idRecette',
+            't_recette.recTitre',
+            't_recette.recDateAjout',
+            't_recette.recImageLien',
+            t_recette::raw("SEC_TO_TIME(TIME_TO_SEC(t_recette.recTemps)) AS recTemps"),
+            t_categorie::raw('GROUP_CONCAT(t_categorie.catNom SEPARATOR ", ") as categorie')
+        )
             ->leftJoin('t_appartenir', 't_recette.idRecette', '=', 't_appartenir.idRecette')
             ->leftJoin('t_categorie', 't_appartenir.idCategorie', '=', 't_categorie.idCategorie')
             ->where('t_recette.recTemps', '<=', '00:30:00')
@@ -63,14 +82,16 @@ class recipeController extends Controller
         $selectedCategorie = $request->input('categories', []);
         $selectedIngredient = $request->input('ingredients', []);
 
-        // Récupère toutes les recettes
+        // Récupère les informations de la recette
         $allRecipies = t_recette::select(
             't_recette.*',
             t_categorie::raw('GROUP_CONCAT(DISTINCT t_categorie.catNom SEPARATOR ", ") as categorie'),
-
+            t_ingredient::raw('GROUP_CONCAT(DISTINCT CONCAT_WS(" ", t_ingredient.ingNom, t_utiliser.utiQuantite, t_utiliser.utiUniteDeMesure) SEPARATOR ", ") as ingredients')
         )
             ->leftJoin('t_appartenir', 't_recette.idRecette', '=', 't_appartenir.idRecette')
             ->leftJoin('t_categorie', 't_appartenir.idCategorie', '=', 't_categorie.idCategorie')
+            ->leftJoin('t_utiliser', 't_recette.idRecette', '=', 't_utiliser.idRecette')
+            ->leftJoin('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
             ->orderBy('t_recette.created_at', 'desc')
             ->groupBy('t_recette.idRecette');
 
@@ -90,7 +111,7 @@ class recipeController extends Controller
         }
         $allRecipiesUpdate = $allRecipies->get();
 
-        // Si aucune recette n'est trouvé pour les catégories et ingredients sélectionnés
+        // Si aucune recette n'est trouvé pour les catégories et ingredients sélectionnés alors un message s'affiche
         if ($allRecipiesUpdate->isEmpty()) {
             $messageFilter = "Aucune recette disponible";
         } else {
@@ -106,7 +127,7 @@ class recipeController extends Controller
 
         // Vérifie si une recherche a été effectuée
         if ($query) {
-            // Effectue la recherche des recettes
+            // Récupère les informations de la recette
             $searchRecipe = t_recette::select(
                 't_recette.*',
                 t_categorie::raw('GROUP_CONCAT(DISTINCT t_categorie.catNom SEPARATOR ",") as categorie'),
@@ -121,7 +142,7 @@ class recipeController extends Controller
                 ->groupBy('t_recette.idRecette')
                 ->get();
 
-            // Vérifier si une recette correspond à la recherche sinon cela affiche un message
+            // Vérifie si une recette correspond à la recherche sinon cela affiche un message
             if ($searchRecipe->isEmpty()) {
                 $messageSearch = "Aucune recette n'a été trouvée pour votre recherche.";
             } else {
@@ -148,11 +169,11 @@ class recipeController extends Controller
     }
 
 
-    /*-----------------------------------PAGE DE DESCRIPTION - description des recettes----------------------------------------*/
+    /*-----------------------------------PAGE DE DESCRIPTION - description des recettes et mise à jour des ingrédients----------------------------------------*/
 
-    public function descriptionRecipies($id)
+    public function descriptionRecipies($id, Request $request)
     {
-        // Récupère toutes les recettes
+        // Récupère les informations de la recette
         $infoRecipies = t_recette::select(
             't_recette.*',
             t_categorie::raw('GROUP_CONCAT(DISTINCT t_categorie.catNom SEPARATOR ", ") as categorie'),
@@ -164,47 +185,110 @@ class recipeController extends Controller
             ->leftJoin('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
             ->where('t_recette.idRecette', '=', $id)
             ->groupBy('t_recette.idRecette')
-            ->get();
+            ->first();
 
-            $numPeople = 1;
-            $ingredients = [];
+        $numPeople = $infoRecipies->recNbDePersonne;
 
-            
+
+        // Vérifie si des modifications de quantités ont été faites dans la vue
+        if ($request->has('servings')) {
+            $numPeople = $request->input('servings');
+
+            // Récupère les ingrédients associés à la recette
+            $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.idRecette', $id)
+                ->get();
+
+            // Met à jour les quantités des ingrédients en fonction du nombre de personnes
+            foreach ($ingredients as $ingredient) {
+                $quantity = $ingredient->utiQuantite;
+
+                $updatedQuantity = $quantity * $numPeople;
+
+                $ingredient->utiQuantite = $updatedQuantity;
+            }
+        } else {
+            // Pas de soumission de mise à jour de quantités donc cela utilise les quantités par défaut dans la base de donnée
+            $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.idRecette', $id)
+                ->get();
+        }
 
         return view('description', [
-            'infoRecipies' => $infoRecipies[0],
-            'numPeople' => $numPeople,
-            'ingredients' => $ingredients
+            'infoRecipies' => $infoRecipies,
+            'ingredients' => $ingredients,
+            'numPeople' => $numPeople
         ]);
     }
 
-    /*-----------------------------------PAGE DE DESCRIPTION - calcule du nombre de personnes----------------------------------------*/
-    public function updateServings(Request $request, $id)
+
+
+    /*-----------------------------------PAGE DE FORMULAIRE - ----------------------------------------*/
+
+    public function formListeDeCourse($id, Request $request)
     {
-    $numPeople = $request->input('servings');
-    $infoRecipies = t_recette::find($id);
 
-    // Récupère les ingrédients associés à la recette
-    $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
-        ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
-        ->where('t_utiliser.idRecette', $id)
-        ->get();
+        $listIngredients = t_recette::select('t_recette.*')
+            ->groupBy('t_recette.idRecette')
+            ->first();
 
-    // Met à jour les quantités des ingrédients en fonction du nombre de personnes
-    foreach ($ingredients as $ingredient) {
-        $quantity = $ingredient->utiQuantite; 
+        $numPeople = $listIngredients->recNbDePersonne;
 
-        $updatedQuantity = $quantity * $numPeople;
+        if ($request->has('servingsList')) {
+            $numPeople = $request->input('servingsList');
 
-        $ingredient->utiQuantite = $updatedQuantity; 
+
+            $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.idRecette', $id)
+                ->get();
+
+
+            foreach ($ingredients as $ingredient) {
+                $quantity = $ingredient->utiQuantite;
+
+                $updatedQuantity = $quantity * $numPeople;
+
+                $ingredient->utiQuantite = $updatedQuantity;
+            }
+        } else {
+
+            $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.idRecette', $id)
+                ->get();
+        }
+
+
+
+        return view('formListeDeCourse', [
+            'listIngredients' => $listIngredients,
+            'ingredients' => $ingredients,
+            'numPeople' => $numPeople,
+        ]);
     }
 
-    return view('description', [
-        'infoRecipies' => $infoRecipies,
-        'ingredients' => $ingredients,
-        'numPeople' => $numPeople
-    ]);
+//NE FONCTIONNE PAS 
+    public function calculateUpdatedQuantities(Request $request, $id)
+    {
+        $calculateQuantities = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+            ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+            ->where('t_utiliser.idRecette', $id)
+            ->get();
+
+       
+        $ingredientQuantities = $request->input('formIngredientQuantity');
+
+        $updatedQuantities = [];
+        foreach ($calculateQuantities as $calculateQuantity) {
+            $updatedQuantity = $calculateQuantity->utiQuantite - $ingredientQuantities;
+            $calculateQuantity->updatedQuantity = $updatedQuantity; 
+            $updatedQuantities[] = $calculateQuantity;
+        }
+
+        return view('formListeDeCourse', [
+            'updatedQuantities' => $updatedQuantities]);
     }
-
-
 }

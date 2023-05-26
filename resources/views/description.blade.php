@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <!--
+    ETML
+    Auteur      : Saska Petrovic
+    Date        : 16.05.23
+    Description : Page de description qui affiche la recette que l'utilisateur à choisi de cliquer, ajustement des quantités en fonction du nombre de personne possible
+
+    -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
@@ -14,16 +22,18 @@
 @include('header')
 
 <body>
-    <a href="{{ url('/recette') }}"><button id="backBtn" type="submit" class="inline-flex text-white border-0 mr-2 mt-4 py-2 px-5 focus:outline-none rounded text-lg">Retour</button></a>
+   
     <section class="text-gray-600 body-font">
+        
         <div class="container px-5 py-24 mx-auto flex flex-col">
+        <a href="{{ url('/recette') }}"><button id="defaultBtn" type="submit" class="inline-flex text-black border-0 mr-2 mt-5 py-2 px-5 focus:outline-none rounded text-lg">Retour</button></a>
             <div class="lg:w-3/5 mx-auto p-5 border-2 border-gray-200 rounded-lg">
+                
                 <h2 class="font-medium title-font mt-3 mb-3 text-gray-800 text-2xl">{{ $infoRecipies->recTitre }}</h2>
-                <h2 class="font-medium title-font mt-1 mb-6 text-gray-500 text-lg">
-                {{ $infoRecipies->categories }}
-                </h2>
+                <h2 class="font-medium title-font mt-1 mb-6 text-gray-500 text-lg">{{ $infoRecipies->categorie }}</h2>
+                                
                 <div class="rounded-md overflow-hidden">
-                    <img alt="content" class="object-cover object-center w-full h-[32rem]" src='{{"/img/".$infoRecipies -> recImage }}'>
+                    <img alt="content" class="object-cover object-center w-full h-[32rem]" src='{{"/img/".$infoRecipies -> recImageLien }}'>
                 </div>
                 <div class="flex flex-col sm:flex-row mt-10">
                     <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
@@ -34,7 +44,7 @@
                             <h2 class="font-medium title-font mt-4 mb-5 text-gray-600 text-lg ml-4">{{ date("H:i:s", strtotime($infoRecipies->recTemps))  }}</h2>
                         </div>
 
-                        <form action="{{ route('updateServings', ['id' => $infoRecipies->idRecette]) }}" method="POST">
+                        <form action="{{ route('description', ['id' => $infoRecipies->idRecette]) }}" method="POST">
                             @csrf
                             <div class="flex flex-col sm:flex-row mt-6">
                                 <img alt="content" class="object-cover object-center w-full h-[32rem]	" id="desImgSize" src='{{"/img/fork.png" }}'>
@@ -50,9 +60,10 @@
 
                         <ul class="text-s font-medium tracking-widest text-gray-500 text-left">
                             @foreach($ingredients as $ingredient)
-                            <li>{{ $ingredient->utiQuantite }} {{ $ingredient->utiUniteDeMesure }} {{ $ingredient->ingNom }}</li>
+                            <li>{{ $ingredient->ingNom }} {{ $ingredient->utiQuantite }} {{ $ingredient->utiUniteDeMesure }} </li>
                             @endforeach
                         </ul>
+                       
                         
                     </div>
                     <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
@@ -60,7 +71,8 @@
                         <p class=" text-lg mb-4 text-justify leading-loose	">{{ $infoRecipies->recPreparation }} </p>
                     </div>
                 </div>
-                <a href="{{ url('/description') }}"><button id="backBtn" type="submit" class="inline-flex text-white border-0 mr-2 mt-4 py-2  px-5 focus:outline-none rounded text-lg">Générer</button></a>
+                <h3 class="font-medium title-font mt-10 mb-1 text-gray-600 text-md">Voulez-vous générer une liste de course ? </h3>
+                <a href="{{ url('/formListeDeCourse', ['id' => $infoRecipies->idRecette]) }}"><button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2  px-5 focus:outline-none rounded text-lg">Générer</button></a>
             </div>
         </div>
     </section>

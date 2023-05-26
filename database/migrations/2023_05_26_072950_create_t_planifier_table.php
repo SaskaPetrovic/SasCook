@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('t_recette', function($table)
-        {
-            $table->unsignedBigInteger('idUser')->after('recImageLien');
-            $table->foreign('idUser')
+        Schema::create('t_planifier', function (Blueprint $table) {
+            $table->unsignedBigInteger('id');
+            $table->foreign('id')
                 ->references('id')->on('users')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('t_planifier');
     }
 };

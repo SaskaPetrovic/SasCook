@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
     position: relative !important;
     min-height: 100% !important;
@@ -13,74 +12,75 @@ body {
     margin-bottom: 240px !important;
     min-height: 100%;
 }
-p{
-  white-space: pre-line;
+p {
+    white-space: pre-line;
 }
 
 header {
-    background-color: rgb(158, 150, 192);
+    background-color: rgba(158, 150, 192, 0.719);
+
 }
 
-.logo{
-  width: auto;
-  height: 5rem;
+
+.logo {
+    width: auto;
+    height: 6rem;
 }
 footer {
-  background-color: rgb(158, 150, 192);
-  position: absolute !important;
-  bottom: 0 !important;
-  width: 100%;
+    background-color:  rgba(158, 150, 192, 0.719);
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100%;
 }
-#backBtn
-{
-    height: 50px !important;
-    margin-left: 10px;
-    background-color: rgb(158, 150, 192) !important;
+#defaultBtn {
+    background-color: rgba(158, 150, 192, 0.719);
+    color: black;
 }
+
 
 /*menu dropdown*/
 /* Dropdown Button */
-.dropdown-btn { 
+.dropdown-btn {
     border: none;
     outline: none;
     background-color: transparent;
     cursor: pointer;
     display: flex;
     margin-top: 4px;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
     display: none;
     position: absolute;
     z-index: 1;
-    margin-top: 1.2rem;
-    background-color: rgb(158, 150, 192) !important;
+    margin-top: 2.5rem;
+    background-color: rgba(158, 150, 192, 0.719) !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: top center;
     transform: scaleY(0);
     border-radius: 3px;
-  }
-  
-  .dropdown-transition {
+}
+
+.dropdown-transition {
     transform: scaleY(1);
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
     padding: 10px 5px 5px 5px;
     text-decoration: none;
     display: block;
     width: 220px;
-  }
-  .dropdownHover:hover {
+}
+.dropdownHover:hover {
     background-color: rgb(176, 171, 201);
     border-radius: 3%;
-  }
+}
 
-  /* Logout Button */
-  .logout-btn {
+/* Logout Button */
+.logout-btn {
     border: none;
     outline: none;
     padding: 5px 5px 10px 5px;
@@ -88,20 +88,19 @@ footer {
     display: block;
     cursor: pointer;
     width: 220px;
-    text-align:left;
-  }
-  
-  /* Change color of logout button on hover */
-  .logout-btn:hover {
+    text-align: left;
+}
+
+/* Change color of logout button on hover */
+.logout-btn:hover {
     background-color: rgb(176, 171, 201) !important;
     border-radius: 3% !important;
-  }
-
+}
 
 /*recettes*/
 
-#RecipeCard{
-  height: 32rem !important;
+#RecipeCard {
+    height: 32rem !important;
 }
 
 /*images des recettes sur la page de recette*/
@@ -114,69 +113,63 @@ footer {
 
 /*message si aucun résultat à la recherche*/
 #AccMessage {
-  font-size: large;
-  text-align: center;
-  margin-top: 10%;
+    font-size: large;
+    text-align: center;
+    margin-top: 10%;
 }
 
 /*filtre des recettes*/
 #imgFilter {
-  display: flex;
-  margin-left: 4%;
-  width: auto;
-  height: 5rem;
+    display: flex;
+    margin-left: 4%;
+    width: auto;
+    height: 5rem;
 }
-#imgFilter img{
-width: auto;
-height: auto;
+#imgFilter img {
+    width: auto;
+    height: auto;
 }
 
 #filter-btn {
-  margin: 0% 0% 1% 1%;
-
+    margin: 0% 0% 1% 1%;
 }
 
 #filter-modal {
-  display: none;
-  background-color: white;
-  width: 80%;
-  border-radius: 10px 10px 10px 10px;
-  border-style: groove;
-  border-width: 2px;
-  border-color: black;
-  position: relative;
-  left: 10%;
-  margin-top: 2%;
+    display: none;
+    background-color: white;
+    width: 80%;
+    border-radius: 10px 10px 10px 10px;
+    border-style: groove;
+    border-width: 2px;
+    border-color: black;
+    position: relative;
+    left: 10%;
+    margin-top: 2%;
 }
 
 #flexFilter {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 #space-inside-modal {
-  margin: 2% 0 2% 2% ;
+    margin: 2% 0 2% 2%;
 }
 
 #titleFilter {
-  color: darkviolet;
-  font-size: large !important;
+    color: darkviolet;
+    font-size: large !important;
 }
 
 #space-checkbox {
-  margin-right: 20px !important;
+    margin-right: 20px !important;
 }
-
 
 /*description*/
 
 #desImgSize {
-width: auto;
-height: 3rem;
-  margin: 0 !important;
+    width: auto;
+    height: 3rem;
+    margin: 0 !important;
 }
-
-
-
-
