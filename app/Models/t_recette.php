@@ -21,9 +21,9 @@ class t_recette extends Model
     protected $fillable = [
         'recTitre',
         'recTemps',
-        'recDate',
+        'recDateAjout',
         'recPreparation',
-        'recImage',
+        'recImageLien',
         'idUser',
         'recNbDePersonne',
     ];

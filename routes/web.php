@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::middleware('auth')->group(function () {
+  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
 //------------------------------------------------Accueil---------------------------------------------//
 
 //page d'accueil, dernière recette ajoutée
@@ -36,11 +44,12 @@ Route::get('/description/{id}', [recipeController::class, 'descriptionRecipies']
 Route::post('/description/{id}', [recipeController::class, 'descriptionRecipies'])->name('description');
 
 
-Route::get('/formListeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('formListeDeCourse');
+Route::middleware('auth')->group(function () {
+  Route::get('/listeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('listeDeCourse');
+  Route::post('/listeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('listeDeCourse');
 
-Route::post('/formListeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('formListeDeCourse');
 
-//Route::post('/formListeDeCourse/{id}', [recipeController::class, 'calculateUpdatedQuantities'])->name('calculateUpdatedQuantities');
+});
 
 
 
@@ -48,11 +57,3 @@ Route::post('/formListeDeCourse/{id}', [recipeController::class, 'formListeDeCou
 //Route::get('/dashboard', function () {
   // return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';

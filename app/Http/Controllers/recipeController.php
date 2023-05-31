@@ -19,6 +19,7 @@ use App\Models\t_generer;
 use App\Models\t_listeDeCourse;
 use App\Models\t_planifier;
 
+
 use Illuminate\Http\Request;
 use Psy\Command\WhereamiCommand;
 use Illuminate\Validation\Rule;
@@ -224,21 +225,24 @@ class recipeController extends Controller
     }
 
 
-
     /*-----------------------------------PAGE DE FORMULAIRE - ----------------------------------------*/
+
 
     public function formListeDeCourse($id, Request $request)
     {
 
-        $listIngredients = t_recette::select('t_recette.*')
-            ->groupBy('t_recette.idRecette')
+        $getIdRecipe =
+            t_recette::select('idRecette', 'recTitre', 'recNbDePersonne')
+            ->where('t_recette.idRecette', '=', $id)
             ->first();
 
-        $numPeople = $listIngredients->recNbDePersonne;
+        $numPeople = $getIdRecipe->recNbDePersonne;
+        $calculateQuantities = [];
 
         if ($request->has('servingsList')) {
             $numPeople = $request->input('servingsList');
 
+            $request->session()->put('numPeople', $numPeople);
 
             $ingredients = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
                 ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
@@ -261,34 +265,49 @@ class recipeController extends Controller
                 ->get();
         }
 
+        /*calcul */
+
+        if ($request->has('formIngredientQuantity')) {
+            $ingredientQuantities = $request->input('formIngredientQuantity');
+            $getNumPeople = $request->session()->get('numPeople');
+
+            $calculateQuantities = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.idRecette', $id)
+                ->get();
+
+            foreach ($calculateQuantities as $index => $calculateQuantity) {
+                $initialQuantity = $calculateQuantity->utiQuantite;
+
+                $initialQuantity *= $getNumPeople;
+                $enteredQuantity = $ingredientQuantities[$index];
+                $updatedQuantity = $initialQuantity - $enteredQuantity;
+
+                // Utilisation de la valeur absolue pour obtenir des résultats positifs
+                $updatedQuantity = max(0, $updatedQuantity);
+
+                $calculateQuantity->updatedQuantity = $updatedQuantity;
+            }
+        } else {
+            // Reste du code pour obtenir les quantités initiales des ingrédients
+        }
 
 
-        return view('formListeDeCourse', [
-            'listIngredients' => $listIngredients,
+
+
+        return view('listeDeCourse', [
+            'getIdRecipe' => $getIdRecipe,
             'ingredients' => $ingredients,
             'numPeople' => $numPeople,
+            'calculateQuantities' => $calculateQuantities,
         ]);
     }
 
-//NE FONCTIONNE PAS 
-    public function calculateUpdatedQuantities(Request $request, $id)
-    {
-        $calculateQuantities = t_utiliser::select('utiQuantite', 'utiUniteDeMesure', 'ingNom')
-            ->join('t_ingredient', 't_utiliser.idIngredient', '=', 't_ingredient.idIngredient')
-            ->where('t_utiliser.idRecette', $id)
-            ->get();
 
-       
-        $ingredientQuantities = $request->input('formIngredientQuantity');
 
-        $updatedQuantities = [];
-        foreach ($calculateQuantities as $calculateQuantity) {
-            $updatedQuantity = $calculateQuantity->utiQuantite - $ingredientQuantities;
-            $calculateQuantity->updatedQuantity = $updatedQuantity; 
-            $updatedQuantities[] = $calculateQuantity;
-        }
 
-        return view('formListeDeCourse', [
-            'updatedQuantities' => $updatedQuantities]);
-    }
+  
+
+
+
 }

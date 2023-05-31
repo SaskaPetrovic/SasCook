@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <h3 class="font-medium title-font mt-10 mb-1 text-gray-600 text-md">Voulez-vous générer une liste de course ? </h3>
-                <a href="{{ url('/formListeDeCourse', ['id' => $infoRecipies->idRecette]) }}"><button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2  px-5 focus:outline-none rounded text-lg">Générer</button></a>
+                <a href="{{ url('/listeDeCourse', ['id' => $infoRecipies->idRecette]) }}"><button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2  px-5 focus:outline-none rounded text-lg">Générer</button></a>
             </div>
         </div>
     </section>
