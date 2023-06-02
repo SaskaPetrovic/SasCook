@@ -60,7 +60,7 @@
 
                         <ul class="text-s font-medium tracking-widest text-gray-500 text-left">
                             @foreach($ingredients as $ingredient)
-                            <li>{{ $ingredient->ingNom }} {{ $ingredient->utiQuantite }} {{ $ingredient->utiUniteDeMesure }} </li>
+                            <li>{{ $ingredient->ingNom }} {{ $ingredient->utiQuantite }} {{ $ingredient->ingUniteDeMesure }} </li>
                             @endforeach
                         </ul>
                        

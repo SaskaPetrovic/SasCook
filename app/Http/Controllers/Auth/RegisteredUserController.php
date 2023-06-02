@@ -21,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        Redirect::setIntendedUrl(url()->previous());//rediriger vers la page que l'utilisateur était avant d'appuyer sur "register"
+        
+//rediriger vers la page que l'utilisateur était avant d'appuyer sur "register"
+        Redirect::setIntendedUrl(url()->previous());
         return view('auth.register');
     }
 
@@ -48,6 +50,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(RouteServiceProvider::HOME);//rediriger vers la page que l'utilisateur était avant d'appuyer sur "register"
+        //rediriger vers la page que l'utilisateur était avant d'appuyer sur "login"
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

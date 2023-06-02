@@ -1,4 +1,10 @@
 <?php
+/**
+* ETML
+* Auteur      : Saska Petrovic
+* Date        : 24.05.2023
+* Description : modèle de la table t_contenir
+*/
 
 namespace App\Models;
 
@@ -10,7 +16,10 @@ class t_contenir extends Model
     use HasFactory;
     public $table = 't_contenir';
     protected $fillable = [
-        'idIngredient',
-        'idListeDeCourse',
+        'fkIngredient',
+        'fkListeDeCourse',
+        'conQuantite'
     ];
+    public $timestamps = false;
+    
 }

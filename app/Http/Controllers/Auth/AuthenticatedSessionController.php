@@ -18,7 +18,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        Redirect::setIntendedUrl(url()->previous());//rediriger vers la page que l'utilisateur était avant d'appuyer sur "register"
+//rediriger vers la page que l'utilisateur était avant d'appuyer sur "register"
+        Redirect::setIntendedUrl(url()->previous());
         return view('auth.login');
     }
 
@@ -45,6 +46,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect(url()->previous());
+        return redirect('/');
     }
 }

@@ -4,7 +4,7 @@
 * ETML
 * Auteur      : Saska Petrovic
 * Date        : 16.05.2023
-* Description : model de la table t_ingredient
+* Description : modèle de la table t_ingredient
 */
 
 namespace App\Models;
@@ -21,5 +21,6 @@ class t_ingredient extends Model
     public $timestamps=true;
     protected $fillable = [
         'ingNom',
+        'ingUniteDeMesure'
     ];
 }

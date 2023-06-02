@@ -3,7 +3,7 @@
 * ETML
 * Auteur      : Saska Petrovic
 * Date        : 16.05.2023
-* Description : model de la table t_appartenir
+* Description : modèle de la table t_appartenir
 */
 
 namespace App\Models;
@@ -15,4 +15,9 @@ class t_appartenir extends Model
 {
     use HasFactory;
     public $table = 't_appartenir';
+    protected $fillable = [
+        'fkCategorie',
+        'fkRecette',
+    ];
+    public $timestamps=false;
 }

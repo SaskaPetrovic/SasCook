@@ -6,33 +6,33 @@ Description : dropdown du header
 -->
 
 <script>
-  // Récupérer le bouton dropdown
+  // Récupère le bouton dropdown
 var dropdown = document.querySelector('.dropdown-btn');
-// Récupérer le contenu du dropdown
+// Récupère le contenu du dropdown
 var dropdownContent = dropdown.nextElementSibling;
 
-// Ajouter un événement de clic sur le bouton dropdown
+// Ajoute un événement de clic sur le bouton dropdown
 dropdown.addEventListener('click', function() {
   toggleDropdown();
 });
 
-// Ajouter un écouteur d'événement sur le document
+// Ajoute un écouteur d'événement sur le document
 document.addEventListener('click', function(event) {
-  // Vérifier si l'événement a été déclenché en dehors du dropdown
+  // Vérifie si l'événement a été déclenché en dehors du dropdown
   if (!dropdown.contains(event.target) && !dropdownContent.contains(event.target)) {
-    // Cacher le contenu du dropdown
+    // Cache le contenu du dropdown
     dropdownContent.style.display = 'none';
   }
 });
 
 // Fonction pour afficher/cacher le dropdown
 function toggleDropdown() {
-  // Vérifier si le contenu du dropdown est déjà affiché ou non
+  // Vérifie si le contenu du dropdown est déjà affiché ou non
   if (dropdownContent.style.display === 'block') {
-    // Cacher le contenu du dropdown
+    // Cache le contenu du dropdown
     dropdownContent.style.display = 'none';
   } else {
-    // Afficher le contenu du dropdown
+    // Affiche le contenu du dropdown
     dropdownContent.style.display = 'block';
   }
 };

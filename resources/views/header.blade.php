@@ -24,15 +24,15 @@ Description : Header du site
                         <button class="dropdown-btn hover:text-gray-900" id="textHover">{{ Auth::user()->name }}
                             <div class="ml-1" id="iconeDropdown">
                                 <svg class="fill-current h-7 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 
+                                    111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
 
                         <div class="dropdown-content dropdown-transition">
-                            <!-- <a class="dropdownHover" href="{{ url('/favoris') }}">Favoris</a>-->
                             <a class="dropdownHover" href="{{ url('/ajouterRecette') }}">Ajouter une recette</a>
-                            <a class="dropdownHover" href="{{ url('/modifierRecette') }}">Liste de course</a>
+                            <a class="dropdownHover" href="{{ url('/afficherListeDeCourse') }}">Liste de course</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="logout-btn">{{ __('Déconnexion') }}</button>

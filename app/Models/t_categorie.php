@@ -3,7 +3,7 @@
 * ETML
 * Auteur      : Saska Petrovic
 * Date        : 16.05.2023
-* Description : model de la table t_categorie
+* Description : modèle de la table t_categorie
 */
 
 namespace App\Models;
@@ -17,8 +17,9 @@ class t_categorie extends Model
     public $table = 't_categorie';
     protected $primaryKey = 'idCategorie';
     public $incrementing =true;
-    public $timestamps=true;
+    public $timestamps=false;
     protected $fillable = [
+        'idCategorie',
         'catNom',
     ];
 }
