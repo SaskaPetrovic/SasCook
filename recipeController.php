@@ -222,6 +222,8 @@ class recipeController extends Controller
          ]);
      }
     /*-----------------------------------PAGE DE FORMULAIRE - ----------------------------------------*/
+
+
     public function formListeDeCourse($id, Request $request)
     {
 
@@ -235,7 +237,6 @@ class recipeController extends Controller
         if ($request->has('servingsList')) {
             $numPeople = $request->input('servingsList');
 
-            //permet de garder la valeur du nombre de personnes dans la session
             $request->session()->put('numPeople', $numPeople);
 
             $ingredients = t_utiliser::select('utiQuantite', 'ingUniteDeMesure', 'ingNom')
@@ -271,15 +272,23 @@ class recipeController extends Controller
                 ->where('t_utiliser.fkRecette', $id)
                 ->get();
 
-            //calcul des quantités initiale - les quantités du formulaire
             foreach ($calculateQuantities as $index => $calculateQuantity) {
                 $initialQuantity = $calculateQuantity->utiQuantite;
+
                 $initialQuantity *= $getNumPeople;
                 $enteredQuantity = $ingredientQuantities[$index];
                 $updatedQuantity = $initialQuantity - $enteredQuantity;
+
+
                 $updatedQuantity = max(0, $updatedQuantity);
+
                 $calculateQuantity->updatedQuantity = $updatedQuantity;
             }
+        } else {
+            $calculateQuantities = t_utiliser::select('utiQuantite', 'ingUniteDeMesure', 'ingNom')
+                ->join('t_ingredient', 't_utiliser.fkIngredient', '=', 't_ingredient.idIngredient')
+                ->where('t_utiliser.fkRecette', $id)
+                ->get();
         }
 
         return view('listeDeCourse', [

@@ -43,12 +43,10 @@ Route::get('/description/{id}', [recipeController::class, 'descriptionRecipies']
 //permet le calcule du nombre de personnes
 Route::post('/description/{id}', [recipeController::class, 'descriptionRecipies'])->name('description');
 
-
+//formulaire liste de course
 Route::middleware('auth')->group(function () {
   Route::get('/listeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('listeDeCourse');
   Route::post('/listeDeCourse/{id}', [recipeController::class, 'formListeDeCourse'])->name('listeDeCourse');
-
-
 });
 
 
@@ -64,8 +62,10 @@ Route::middleware('auth')->group(function () {
 
 //page d'ajout
 Route::middleware('auth')->group(function () {
-  Route::post('/ajouterRecette', [recipeController::class, 'addRecipe'])->name('ajouterRecette');
-  Route::get('/ajouterRecette', [recipeController::class, 'getCategorieAndIngredient'])->name('ajouterRecette');
+  Route::post('/ajouterRecette', [recipeController::class, 'addRecipe'])
+  ->name('ajouterRecette');
+  Route::get('/ajouterRecette', [recipeController::class, 'getCategorieAndIngredient'])
+  ->name('ajouterRecette');
 });
 
 //Route::get('/dashboard', function () {

@@ -7,15 +7,10 @@
 ETML
 Auteur      : Saska Petrovic
 Date        : 17.05.23
-Description : Page de recette qui affiche toutes les recettes de la base de données
+Description : Page qui affiche les listes de courses
 
 -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Afficher la liste de course</title>
-    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
 </head>
 <!--inclure le header dans la page d'accueil -->
 @include('header')
@@ -32,7 +27,6 @@ Description : Page de recette qui affiche toutes les recettes de la base de donn
 
             <form action="{{ route('afficherListeDeCourse') }}" method="get">
                 @csrf
-
                 <div class="flex flex-wrap -m-4">
                     @if ($groceryList->isEmpty())
                     <p>{{ $message }}</p>
@@ -40,21 +34,26 @@ Description : Page de recette qui affiche toutes les recettes de la base de donn
                     <!--afficher les listes des courses-->
                     @foreach ($groceryList as $list)
                     <div class="xl:w-1/4 md:w-1/2 p-4">
-                        <div class="bg-gray-100 p-6 rounded-lg" id="RecipeCard">
-                            <h3 class="text-xl font-medium tracking-widest text-gray-700 title-font">Liste de courses du </h3>
-                            <h3 class="text-xl font-medium tracking-widest text-gray-700 title-font pb-3 border-dashed border-b-2 border-indigo-200">{{ $list->lisDate }}</h3>
+                    <div class="bg-gray-100 p-6 rounded-lg" id="RecipeCard">
+                        <h3 class="text-xl font-medium tracking-widest text-gray-700 title-font">
+                            Liste de courses du 
+                        </h3>
+                        <h3 class="text-xl font-medium tracking-widest text-gray-700 title-font 
+                            pb-3 border-dashed border-b-2 border-indigo-200">{{ $list->lisDate }}
+                        </h3>
 
-                            <h2 class="text-xl font-medium tracking-widest text-gray-700 title-font pt-2 pb-6">{{ $list->recTitre }}</h2>
-                            <h2 class="text-s font-medium tracking-widest text-gray-500 title-font">
-                                <ul class="text-s tracking-widest">
-                                    @foreach(explode(", ", $list->ingredients) as $ingredient)
-                                    <li>{{ $ingredient }}</li>
-                                    @endforeach
-                                </ul>
-                            </h2>
-                        </div>
+                        <h2 class="text-xl font-medium tracking-widest text-gray-700 title-font 
+                            pt-2 pb-6">{{ $list->recTitre }}
+                        </h2>
+                        <h2 class="text-s font-medium tracking-widest text-gray-500 title-font">
+                            <ul class="text-s tracking-widest">
+                                @foreach(explode(", ", $list->ingredients) as $ingredient)
+                                <li>{{ $ingredient }}</li>
+                                @endforeach
+                            </ul>
+                        </h2>
                     </div>
-
+                    </div>
                     @endforeach
                     @endif
                 </div>
@@ -64,7 +63,7 @@ Description : Page de recette qui affiche toutes les recettes de la base de donn
     </section>
 
 </body>
-<!--inclure le footer dans la page de recette  -->
+<!--inclure le footer -->
 @include('footer')
 
 </html>

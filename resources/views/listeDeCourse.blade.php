@@ -9,13 +9,7 @@
     Description : Page de formulaire permettant à l'utilisateur de générer une liste de course
 
     -->
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Générer une liste de course</title>
-    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
 </head>
 
 <!--inclure le header dans la page de formulaire de liste de course -->
@@ -37,8 +31,11 @@
                             <div class="flex flex-col sm:flex-row mt-6">
                                 <img alt="content" class="object-cover object-center w-full h-[32rem]	" id="desImgSize" src='{{"/img/fork.png" }}'>
                                 <!--chatGpt utilisé pour que la valeur du nombre de personne choisi soit conservé-->
-                                <input type="number" name="servingsList" min="1" max="30" value="{{ old('servings', $numPeople) }}" class="form-control w-16 h-12 ml-4 text-gray-500 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none ">
-                                <button type="submit" class="inline-flex text-black ml-3  p-2  bg-gray-100 focus:outline-none rounded text-md">Mettre à jour</button>
+                                <input type="number" name="servingsList" min="1" max="30" value="{{ old('servings', $numPeople) }}" class="form-control w-16 h-12 ml-4 text-gray-500 transition-colors duration-200 ease-in-out 
+                                bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none ">
+                                <button type="submit" class="inline-flex text-black ml-3  p-2  bg-gray-100 focus:outline-none 
+                                rounded text-md">Mettre à jour
+                                </button>
                             </div>
                         </form>
 
@@ -52,8 +49,13 @@
                                 @foreach($ingredients as $index => $ingredient)
                                 <li>
                                     <div class="flex items-center mb-7 w-full">
-                                        <span class="font-medium">{{ $ingredient->ingNom }} {{ $ingredient->utiQuantite }} {{ $ingredient->ingUniteDeMesure }}</span>
-                                        <input type="number" name="formIngredientQuantity[]" placeholder="ex : 100" class="ml-auto h-12 bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-600 px-2 leading-1 transition-colors duration-200 ease-in-out" max="{{ $ingredient->utiQuantite }}" required>
+                                        <span class="font-medium">
+                                            {{ $ingredient->ingNom }} {{ $ingredient->utiQuantite }} {{ $ingredient->ingUniteDeMesure }}
+                                        </span>
+                                        <input type="number" name="formIngredientQuantity[]" placeholder="ex : 100" class="ml-auto h-12 bg-gray-100 rounded border bg-opacity-50 border-gray-300 
+                                        focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 
+                                        text-base outline-none text-gray-600 px-2 leading-1 transition-colors duration-200 
+                                        ease-in-out" max="{{ $ingredient->utiQuantite }}" required>
                                         {{ $ingredient->ingUniteDeMesure }}
                                         <input type="hidden" name="formIngredientId[]" value="{{ $ingredient->idIngredient }}">
                                     </div>
@@ -61,12 +63,17 @@
                                 @endforeach
 
                             </ul>
-                            <h3 class="text-left font-medium title-font mt-16 mb-1 text-gray-600 text-md">Voulez-vous mettre à jour votre liste de course ? </h3>
-                            <button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2  px-5 focus:outline-none rounded text-lg">Mettre à jour</button>
+                            <h3 class="text-left font-medium title-font mt-16 mb-1 text-gray-600 text-md">
+                                Voulez-vous mettre à jour votre liste de course ?
+                            </h3>
+                            <button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2 
+                                px-5 focus:outline-none rounded text-lg">Mettre à jour
+                            </button>
                         </form>
 
                     </div>
-                    <div class="sm:w-1/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                    <div class="sm:w-1/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 
+                    pt-4 sm:mt-0 text-center sm:text-left">
                         <h2 class="font-medium title-font mt-4 mb-5 text-gray-600 text-2xl">Liste de course</h2>
                         <p class="font-medium title-font mt-8 mb-8 text-gray-600 text-lg">INGREDIENTS</p>
                         <form action="{{ route('listeDeCourse', ['id' => $getIdRecipe->idRecette]) }}" method="POST">
@@ -74,7 +81,8 @@
                             <ul class="text-s tracking-widest">
                                 @foreach($calculateQuantities as $calculateQuantity)
                                 @if($calculateQuantity->updatedQuantity > 0)
-                                <li>{{ $calculateQuantity->ingNom }} {{ $calculateQuantity->updatedQuantity }} {{ $calculateQuantity->ingUniteDeMesure }}</li>
+                                <li>{{ $calculateQuantity->ingNom }} {{ $calculateQuantity->updatedQuantity }} {{ $calculateQuantity->ingUniteDeMesure }}
+                                </li>
                                 @endif
                                 @endforeach
                             </ul>
@@ -83,7 +91,9 @@
                             @csrf
                             <div class="flex flex-wrap items-center">
                                 <input type="hidden" name="recipeListeCourseId" value="{{ $getIdRecipe->idRecette }}">
-                             <button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2 px-5 focus:outline-none rounded text-lg">Ajouter à la liste de courses</button>
+                                <button id="defaultBtn" type="submit" class="inline-flex border-0 mr-2 mt-4 py-2 px-5 
+                             focus:outline-none rounded text-lg">Ajouter à la liste de courses
+                                </button>
                             </div>
                         </form>
 
@@ -93,7 +103,7 @@
             </div>
     </section>
 </body>
-<!--inclure le footer dans la page de recette  -->
+<!--inclure le footer  -->
 @include('footer')
 
 </html>

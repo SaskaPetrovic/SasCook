@@ -6,6 +6,23 @@ Description : Header du site
 -->
 
 <!--header du site-->
+
+<head>
+    <!--
+    ETML
+    Auteur      : Saska Petrovic
+    Date        : 16.05.23
+    Description : Page d'accueil qui affiche la dernière recette ajoutée ainsi qu'une recette aléatoire réalisable en moins de 30min
+
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- <link rel="stylesheet" href="http://sascook.section-inf.ch/build/assets/app-77ca3f71.css"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="{{'/img/logoSite.png'}}" type="image/icon type">
+</head>
 <header>
         <main class="container flex flex-col flex-wrap items-center p-2 mx-auto md:flex-row">
             <a class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">

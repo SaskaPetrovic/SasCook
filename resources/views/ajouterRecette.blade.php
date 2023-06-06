@@ -7,41 +7,30 @@
 ETML
 Auteur: Saska Petrovic
 Date: 29.05.2023
-Description: Page d'ajout d'une recette le bon !!
+Description: Page d'ajout d'une recette
 -->
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
     <title>ajouter une recette</title>
 </head>
 
 <body>
-    <!--inclure le header dans la page d'accueil-->
+    <!--inclure le header-->
     @include('header')
-    <!--alerte si le manga existe deja-->
-    @if($errors->has('existingRecette'))
-    <div class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-500" role="alert">
-        <span class="font-medium">Warning alert!</span> {{ $errors->first('existingRecette') }}
-    </div>
-    @endif
-
-
-
 
     <section class="text-gray-600 body-font">
-
         <div class="container px-5 py-24 mx-auto flex flex-col">
             <a href="{{ url('/recette') }}"><button id="defaultBtn" type="submit" class="inline-flex text-black border-0 mr-2 mt-5 py-2 px-5 focus:outline-none rounded text-lg">Retour</button></a>
             <div class="lg:w-4/6 mx-auto p-5 border-2 border-gray-200 rounded-lg">
 
                 <h2 class="font-medium title-font mt-3 mb-3 pb-3 text-gray-800 text-2xl border-dashed border-b-2 border-indigo-300">Ajouter une recette</h2>
+                <!--formulaire d'ajout-->
                 <form action="{{ route('ajouterRecette') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex items-center mb-4">
                         <label for="fkUser" class="w-1/4 block text-gray-700 font-bold">Utilisateur :</label>
                         <div class="w-3/4">
-                            <span class="w-full px-3 py-1 text-base leading-8 text-gray-700 ">{{ auth()->user()->name }}</span>
+                            <span class="w-full px-3 py-1 text-base leading-8 text-gray-700 ">
+                                {{ auth()->user()->name }}
+                            </span>
                         </div>
                     </div>
 
@@ -49,9 +38,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recDateAjout" class="w-1/4 block text-gray-700 font-bold ">Date d'ajout :</label>
                         <div class="w-3/4">
                             <input type="datetime-local" name="recDateAjout" class=" w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200" required>
-                            @error('recDateAjout')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -59,9 +45,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recTemps" class=" w-1/4 block text-gray-700 font-bold ">Temps de préparation :</label>
                         <div class="w-3/4">
                             <input type="time" name="recTemps" placeholder="Ex: 10" class=" w-full  px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200" required>
-                            @error('recTemps')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -69,9 +52,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recNbDePersonne" class=" w-1/4  block text-gray-700 font-bold ">Nombre de personnes :</label>
                         <div class="w-3/4">
                             <input type="number" name="recNbDePersonne" class="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200" placeholder="Ex: 5" required>
-                            @error('recNbDePersonne')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -79,9 +59,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recTitre" class="w-1/4 block text-gray-700 font-bold">Titre :</label>
                         <div class="w-3/4">
                             <input type="text" name="recTitre" placeholder="titre de la recette" class=" w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200" required>
-                            @error('recTitre')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -90,27 +67,18 @@ Description: Page d'ajout d'une recette le bon !!
                         <div class="flex items-center mb-4">
                             <label class="w-1/4">Catégories</label>
                             <div class="w-3/4">
-
                                 <select name="categories[]" class="form-select w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200">
                                     @foreach($categories as $categorie)
-
                                     <option value="{{ $categorie->idCategorie }}">{{ $categorie->catNom }}</option>
-
-
-
                                     @endforeach
                                 </select>
-
-
-                                <!--message d'erreur-->
-                                @error('categories')
-                                <div class="text-red-500">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                     </div>
-                    <button type="button" onclick="ajouterCategorie()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" id="monBouton">Ajouter une catégorie</button>
-
+                    <button type="button" onclick="ajouterCategorie()" 
+                    class="bg-blue-500 hover:bg-blue-700 text-white
+                     font-bold py-2 px-4 rounded mt-2" id="monBouton">Ajouter une catégorie
+                    </button>
 
                     <hr class="my-4">
                     <div class="ingredient" id="ingredients">
@@ -123,8 +91,11 @@ Description: Page d'ajout d'une recette le bon !!
                                         <option value="{{ $ingredient->idIngredient }}" for="ingredient{{ $ingredient->idIngredient }}">{{ $ingredient->ingNom }}</option>
                                         @endforeach
                                     </select>
-                                    <input type="number" required name="utiQuantite[]" placeholder="Quantité" class="w-1/4 px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200">
-
+                                    <input type="number" required name="utiQuantite[]" placeholder="Quantité" 
+                                    class="w-1/4 px-3 py-1 text-base leading-8 text-gray-700 transition-colors 
+                                    duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300
+                                     rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 
+                                     focus:ring-purple-200">
                                 </div>
                             </div>
                         </div>
@@ -137,9 +108,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recPreparation" class="w-1/4 block text-gray-700 font-bold ">Préparation :</label>
                         <div class="w-3/4">
                             <textarea type="text" name="recPreparation" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. " class=" w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200" required></textarea>
-                            @error('recPreparation')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -147,10 +115,6 @@ Description: Page d'ajout d'une recette le bon !!
                         <label for="recImageLien" class="w-1/4 block text-gray-700 font-bold ">Image :</label>
                         <div class="w-3/4">
                             <input type="file" name="recImageLien" id="recImageLien" class="py-2 px-3 mt-1  block w-full">
-                            @error('recImageLien')
-                            <div class="text-red-500 mt-1 text-sm">{{ $message }}</div>
-                            @enderror
-
                         </div>
                     </div>
 
@@ -158,124 +122,12 @@ Description: Page d'ajout d'une recette le bon !!
                 </form>
             </div>
         </div>
-
     </section>
-
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://use.fontawesome.com/03f8a0ebd4.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-    <script>
-        var nbCategories = 1;
-        var categories = @json($categories); //chatGPT
-
-        function ajouterCategorie() {
-            // Permet d'ajouter un champ catégorie
-            nbCategories++;
-
-            var divCategorie = document.createElement("div");
-            divCategorie.className = 'flex items-center mb-4';
-            divCategorie.id = 'categorie' + nbCategories;
-
-            var label = document.createElement("label");
-            label.className = 'w-1/4';
-            label.textContent = '';
-
-            var button = document.createElement("button");
-            button.type = 'button';
-            button.textContent = 'Supprimer';
-            button.className = 'bg-red-500 w-auto hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2';
-            button.addEventListener('click', function() {
-                divCategorie.remove();
-            });
-
-            label.appendChild(button);
-            divCategorie.appendChild(label);
-
-            var divSelect = document.createElement("div");
-            divSelect.className = 'w-3/4';
-
-            var select = document.createElement("select");
-            select.name = 'categories[]';
-            select.className = 'form-select w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200';
-
-            categories.forEach(function(categorie) {
-                var option = document.createElement("option");
-                option.value = categorie.idCategorie;
-                option.textContent = categorie.catNom;
-                select.appendChild(option);
-            });
-
-            divSelect.appendChild(select);
-            divCategorie.appendChild(divSelect);
-
-            document.getElementById("categories").appendChild(divCategorie);
-        }
-    </script>
-
-    <script>
-        var nbIngredients = 1;
-        var ingredients = @json($ingredients); //chatGPT
-
-        function ajouterIngredient() {
-            nbIngredients++;
-
-            var divIngredient = document.createElement("div");
-            divIngredient.className = 'flex items-center mb-4';
-            divIngredient.id = 'ingredient' + nbIngredients;
-
-            var divButton = document.createElement("div");
-            divButton.className = 'w-1/4';
-
-            var removeButton = document.createElement("button");
-            removeButton.type = 'button';
-            removeButton.textContent = 'Supprimer';
-            removeButton.className = 'bg-red-500 w-auto hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 removeButton';
-            removeButton.addEventListener('click', function() {
-                divIngredient.remove();
-            });
-
-            divButton.appendChild(removeButton);
-            divIngredient.appendChild(divButton);
-
-            var divSelect = document.createElement("div");
-            divSelect.className = 'w-3/4 flex';
-
-            var select = document.createElement("select");
-            select.name = 'ingredients[]';
-            select.className = 'form-select w-3/4 px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200';
-
-            ingredients.forEach(function(ingredient) {
-                var option = document.createElement("option");
-                option.value = ingredient.idIngredient;
-                option.textContent = ingredient.ingNom;
-                select.appendChild(option);
-            });
-
-            var inputQuantite = document.createElement("input");
-            inputQuantite.type = 'text';
-            inputQuantite.name = 'utiQuantite[]';
-            inputQuantite.placeholder = 'Quantité';
-            inputQuantite.className = 'w-1/4 px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-gray-100 bg-opacity-50 border border-gray-300 rounded outline-none focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200';
-
-            divSelect.appendChild(select);
-            divSelect.appendChild(inputQuantite);
-            divIngredient.appendChild(divSelect);
-
-            document.getElementById("ingredients").appendChild(divIngredient);
-        }
-
-        document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('removeButton')) {
-                event.target.parentNode.parentNode.remove();
-            }
-        });
-    </script>
-
+    <!--inclue le script qui ajoute des espaces pour 
+      les catégories et les ingrédients -->
+    @include('ajouterIngredientCategorie')
 </body>
-<!--inclure le footer dans la page d'accueil-->
+<!--inclure le footer-->
 @include('footer')
 
 </html>
