@@ -115,9 +115,74 @@ The platform allows users to browse a wide variety of recipes, filter them by ca
 
 ✦︎ uWamp or equivalent local server environment 
 
-### Setup  
-_(Coming soon)_
-(ᵕ—ᴗ—)
+</br> 
+
+### Setup
+(ㅅ´ ˘ `)
+
+
+Clone the GitHub repository using the following command 
+
+```bash
+git clone <repository_link>
+```
+
+Install all the PHP dependencies of the project with Composer: 
+
+```bash
+composer install
+
+```
+
+Install JavaScript dependencies with npm 
+
+```bash
+npm install
+
+```
+
+Create a .env file by copying .env.example  
+
+```bash
+cp .env.example .env
+
+```
+
+Generate the Laravel application key with the following command:
+
+```bash
+php artisan key:generate
+
+```
+
+Run the migrations
+
+```bash
+php artisan migrate
+
+```
+
+Seed the database with initial data 
+
+```bash
+php artisan db:seed
+
+```
+
+Start the development server
+
+```bash
+php artisan serve
+
+```
+
+Access the project
+
+```bash
+http://127.0.0.1:8000
+
+```
+(づ ᴗ _ᴗ)づ♡
 
 </br> 
 <h2 name="usage">𐙚 Usage </h2>
@@ -136,6 +201,9 @@ _(Coming soon)_
 <h2 name="screenshots">𐙚 Screenshots </h2>
 
 (ᵕ—ᴗ—)
+</br> 
+[View Demo](https://youtu.be/6qrpzOzXLyk)
+
 
 </br> 
 <h2 name="contact">☕︎ Connect with me</h2>
