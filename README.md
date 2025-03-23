@@ -202,6 +202,19 @@ http://127.0.0.1:8000
 
 (ᵕ—ᴗ—)
 </br> 
+
+## 📸 Screenshots
+
+### Homepage
+![Screenshot 1](./images/screenshot1.png) ![Screenshot 2](./images/screenshot1.png) ![Screenshot 3](./images/screenshot1.png)
+
+### Recipes Page
+![Screenshot 1](./images/screenshot1.png) ![Screenshot 2](./images/screenshot1.png) ![Screenshot 3](./images/screenshot1.png)
+
+### Recipe Details Page
+![Screenshot 1](./images/screenshot1.png) ![Screenshot 2](./images/screenshot1.png) ![Screenshot 3](./images/screenshot1.png)
+
+
 [View Demo](https://youtu.be/6qrpzOzXLyk)
 
 
