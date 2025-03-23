@@ -206,16 +206,29 @@ http://127.0.0.1:8000
 ## 📸 Screenshots
 
 ### Homepage
-![Screenshot 1](public/img/) ![Screenshot 2](./images/screenshot1.png)
+<p align="left">
+  <img src="public/img/Screenshot-homepage.png" width="70%" />
+</p>
 
 ### Recipes Page
-![Screenshot 1](./images/screenshot1.png) ![Screenshot 2](./images/screenshot1.png)
+<p align="left">
+  <img src="public/img/Screenshot-filter.png" width="70%" />
+  <img src="public/img/Screenshot-recipe.png" width="70%" />
+</p>
 
 ### Recipe Details Page
-![Screenshot 1](./images/screenshot1.png) ![Screenshot 2](./images/screenshot1.png) ![Screenshot 3](./images/screenshot1.png)
+<p align="left">
+  <img src="public/img/Screenshot-description.png" width="70%" />
+</p>
+
+### Add a recipe
+<p align="left">
+  <img src="public/img/Screenshot-addRecipe.png" width="70%" />
+</p>
 
 
-[View Demo](https://youtu.be/6qrpzOzXLyk)
+
+[View Demo on youtube](https://youtu.be/6qrpzOzXLyk) ( ꈍ◡ꈍ)
 
 
 </br> 
