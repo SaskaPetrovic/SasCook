@@ -3,7 +3,7 @@
 
 <!-- PROJECT LOGO -->
 <!--<h2 align="center">SasCook</h2>-->
-## SasCook
+## SasCook (๑>؂•̀๑)
 
 <!--<div align="center">
   <a href="https://github.com/github_username/repo_name">
@@ -13,7 +13,7 @@
 
 </div>-->
 
-<h3 align="center">Let's cook ⸜(｡˃ ᵕ ˂)⸝♡
+<h3 align="center">Let's cook ヾ( ˃ᴗ˂ )◞ • *✰
 
 </br> ![](https://media1.tenor.com/m/W_J0-YgL_9AAAAAd/anime-making-food.gif) </h3>
 </br> 
@@ -117,6 +117,7 @@ The platform allows users to browse a wide variety of recipes, filter them by ca
 
 ### Setup  
 _(Coming soon)_
+(ᵕ—ᴗ—)
 
 </br> 
 <h2 name="usage">𐙚 Usage </h2>
@@ -134,8 +135,7 @@ _(Coming soon)_
 </br> 
 <h2 name="screenshots">𐙚 Screenshots </h2>
 
-- Homepage  
-- Recipes Page  
+(ᵕ—ᴗ—)
 
 </br> 
 <h2 name="contact">☕︎ Connect with me</h2>
