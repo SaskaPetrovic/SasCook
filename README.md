@@ -3,8 +3,6 @@
 
 ## SasCook (๑>؂•̀๑)
 
-</div>-->
-
 <h3 align="center">Let's cook ヾ( ˃ᴗ˂ )◞ • *✰
 
 </br> ![](https://media1.tenor.com/m/W_J0-YgL_9AAAAAd/anime-making-food.gif) </h3>
