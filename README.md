@@ -1,15 +1,7 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
-<!-- PROJECT LOGO -->
-<!--<h2 align="center">SasCook</h2>-->
 ## SasCook (๑>؂•̀๑)
-
-<!--<div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="public/img/logoSite.png" alt="Logo" width="80" height="80">
-  </a>
-
 
 </div>-->
 
@@ -127,7 +119,7 @@ Clone the GitHub repository using the following command
 git clone <repository_link>
 ```
 
-Install all the PHP dependencies of the project with Composer: 
+Install all the PHP dependencies of the project with Composer 
 
 ```bash
 composer install
@@ -148,7 +140,7 @@ cp .env.example .env
 
 ```
 
-Generate the Laravel application key with the following command:
+Generate the Laravel application key with the following command
 
 ```bash
 php artisan key:generate
