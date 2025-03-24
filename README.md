@@ -198,12 +198,7 @@ http://127.0.0.1:8000
 𖹭 Create a shopping list by adding missing ingredients and consult it anytime from the dedicated tab.
 
 </br> 
-<h2 name="screenshots">𐙚 Screenshots </h2>
-
-(ᵕ—ᴗ—)
-</br> 
-
-## 📸 Screenshots
+<h2 name="screenshots">𐙚 Screenshots </h2> 
 
 ### Homepage
 <p align="left">
