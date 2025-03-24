@@ -116,7 +116,7 @@ The platform allows users to browse a wide variety of recipes, filter them by ca
 Clone the GitHub repository using the following command 
 
 ```bash
-git clone <repository_link>
+git clone git@github.com:SaskaPetrovic/SasCook.git
 ```
 
 Install all the PHP dependencies of the project with Composer 
