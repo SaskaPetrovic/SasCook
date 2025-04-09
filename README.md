@@ -69,24 +69,24 @@ The platform allows users to browse a wide variety of recipes, filter them by ca
 <h2 name="key-features">𐙚 Key Features </h2>
 
 𖤝 **Homepage**  
-  - Displays the latest recipe added.  
-  - Shows a random recipe that can be prepared in under 30 minutes.  
+  - Displays the latest recipe added  
+  - Shows a random recipe that can be prepared in under 30 minutes
 
 𖤝 **Recipes Page**  
-  - Displays all available recipes.  
-  - Filters by category and ingredients.  
-  - A search bar to quickly find a recipe.  
+  - Displays all available recipes  
+  - Filters by category and ingredients 
+  - A search bar to quickly find a recipe 
 
 𖤝 **Recipe Details Page**  
   - Full description with ingredients list.  
-  - Option to adjust the number of servings, with dynamic recalculation of ingredient quantities.  
+  - Option to adjust the number of servings, with dynamic recalculation of ingredient quantities
 
 𖤝 **User Authentication**  
-  - Logged-in users can add, edit, and manage their own recipes.  
+  - Logged-in users can add, edit, and manage their own recipes  
 
 𖤝 **Shopping List**  
-  - Add missing ingredients from any recipe to a personal shopping list.  
-  - View all your shopping lists in a dedicated tab.
+  - Add missing ingredients from any recipe to a personal shopping list 
+  - View all your shopping lists in a dedicated tab
 
 
 </br> 
@@ -177,15 +177,15 @@ http://127.0.0.1:8000
 </br> 
 <h2 name="usage">𐙚 Usage </h2>
 
-𖹭 Browse all recipes in the "Recipes" tab.  
+𖹭 Browse all recipes in the "Recipes" tab  
 
-𖹭 Filter by categories and ingredients or use the search bar.  
+𖹭 Filter by categories and ingredients or use the search bar  
 
-𖹭 Open a recipe to see detailed instructions and adjust the number of servings.  
+𖹭 Open a recipe to see detailed instructions and adjust the number of servings 
 
-𖹭 Add recipes if you are logged in.  
+𖹭 Add recipes if you are logged in  
 
-𖹭 Create a shopping list by adding missing ingredients and consult it anytime from the dedicated tab.
+𖹭 Create a shopping list by adding missing ingredients and consult it anytime from the dedicated tab
 
 </br> 
 <h2 name="screenshots">𐙚 Screenshots </h2> 
